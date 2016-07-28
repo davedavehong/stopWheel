@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>原型测试</title>
+    <script src="http://lib.sinaapp.com/js/jquery/1.9.1/jquery-1.9.1.min.js"></script>
+    <style rel="stylesheet">
+        body {
+            background-color: #888;
+        }
+
+        #demo {
+            background-color: #fff;
+            width: 300px;
+            height: 100px;
+            border: 1px solid orange;
+            overflow: scroll;
+        }
+
+        .sth {
+            height: 200px;
+            width: 100px;
+            background-color: #fff;
+        }
+    </style>
+</head>
+<body>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<br>
+<div class="sth">占位置</div>
+<br>
+<br>
+<br>
+
+<div id="demo"><span id="show">0</span></div>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<div class="sth">看不到我！！</div>
+<br>
+<br>
+<br>
+<br>
+<br>
+<div class="sth">真的看不到我！！</div>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+</body>
+<script>
+    var index = 0;
+    var sw = true;//是否永远不滚动页面
+    $("#demo").on('wheel DOMMouseScroll', function (ev) {
+                var delta = (ev.originalEvent.wheelDelta && (ev.originalEvent.wheelDelta > 0 ? 1 : -1)) ||  // chrome & ie
+                        (ev.originalEvent.detail && (ev.originalEvent.detail > 0 ? -1 : 1));              // firefox
+
+                if (index < 20 && delta > 0) {
+                    // 向上滚
+                    console.log("wheelUp");
+                    $("#show").text(index++);
+                    return false
+                }
+
+                if (index > -20 && delta < 0) {
+                    // 向下滚
+                    console.log("wheelDown");
+                    $("#show").text(index--);
+                    return false
+                }
+                if (sw) {
+                    return false
+                }
+            }
+    );
+    $(window).scroll(function (ev) {
+        ev.stopPropagation();
+        ev.preventDefault();
+//    并没有用
+        return false
+    })
+</script>
+</html>
